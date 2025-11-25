@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Deepak Chauhan — Web Developer</title>
+  <meta name="description" content="Deepak Chauhan — B.Sc. Computer Science student and Web Developer. Frontend & Backend, responsive websites and clean code." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --bg:#f5f8fb;
+      --card:#ffffff;
+      --muted:#5f6d73;
+      --primary-600:#0b6fa8;
+      --primary-700:#075b86;
+      --accent:#07a0e0;
+      --radius:12px;
+      --container:1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:linear-gradient(180deg,var(--bg),#eef6fb);
+      color:#102328;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      /* body padding-top will be set by JS based on header height */
+    }
+    .wrap{width:94%;max-width:var(--container);margin:0 auto}
+
+    /* NAV - now fixed so it never gets hidden */
+    header{position:fixed;left:0;right:0;top:0;z-index:9999}
+    .navbar{display:flex;align-items:center;justify-content:space-between;padding:14px;border-radius:10px;max-width:var(--container);margin:8px auto;background:linear-gradient(90deg,var(--primary-600),var(--primary-700));box-shadow:0 12px 30px rgba(11,111,168,.12);color:#fff}
+    .logo{font-weight:700;letter-spacing:.2px;font-size:1.05rem}
+    nav ul{list-style:none;margin:0;padding:0;display:flex;gap:18px;align-items:center}
+    nav a{color:rgba(255,255,255,.95);text-decoration:none;font-weight:600;font-size:0.95rem;padding:8px 10px;border-radius:8px}
+    nav a:hover, nav a:focus{background:rgba(255,255,255,0.06)}
+    .cta-small{background:rgba(255,255,255,.08);padding:8px 12px;border-radius:10px;font-weight:600}
+
+    /* Mobile nav */
+    .hamburger{display:none;width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,0.06);align-items:center;justify-content:center;border:none;color:#fff}
+    .mobile-nav{display:none;position:fixed;inset:0;background:linear-gradient(180deg,rgba(2,23,40,.6),rgba(2,23,40,.4));backdrop-filter:blur(6px);padding:60px 20px}
+    .mobile-nav .menu{background:var(--card);border-radius:12px;padding:18px;max-width:420px;margin:0 auto}
+    .mobile-nav a{display:block;padding:12px 8px;color:var(--primary-700);text-decoration:none;font-weight:700;border-bottom:1px solid rgba(10,30,40,.04)}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr 320px;gap:28px;align-items:center;padding:110px 0 44px} /* top padding accounts for fixed header */
+    .h-title{font-size:clamp(1.6rem,3vw,2.6rem);margin:0 0 6px}
+    .h-sub{color:var(--muted);margin:0 0 14px;font-size:1.02rem}
+    .actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:10px;border-radius:12px;padding:10px 14px;font-weight:700;border:none;cursor:pointer;text-decoration:none}
+    .btn-primary{background:var(--primary-700);color:#fff;box-shadow:0 8px 18px rgba(11,111,168,.12)}
+    .btn-outline{background:transparent;border:1px solid rgba(5,65,90,.06);color:var(--primary-700)}
+
+    .avatar-wrap{display:flex;justify-content:center}
+    .avatar{width:300px;height:300px;border-radius:18px;object-fit:cover;border:10px solid #fff;box-shadow:0 22px 60px rgba(2,23,40,.08)}
+    .statline{display:flex;gap:12px;margin-top:12px}
+    .stat{background:var(--card);padding:10px 12px;border-radius:12px;box-shadow:0 8px 22px rgba(20,40,60,.04);text-align:center}
+    .stat b{display:block;font-size:1.02rem}
+
+    section{padding:36px 0}
+    .card{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:0 8px 24px rgba(20,40,60,.04)}
+
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .project{padding:16px;border-radius:12px;background:linear-gradient(180deg,#fff,#fbfeff);border:1px solid rgba(10,30,40,.02)}
+    .project h3{margin:0 0 8px}
+    .muted{color:var(--muted)}
+
+    /* Education */
+    .education{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .edu-item{padding:14px;border-radius:10px;border:1px solid rgba(10,30,40,.03);background:linear-gradient(180deg,#fff,#fcfeff)}
+    .edu-item h4{margin:0 0 6px}
+    .edu-meta{color:var(--muted);font-size:0.95rem}
+
+    .experience-list{display:grid;gap:12px}
+
+    .contact-form{max-width:720px;margin:10px auto}
+    .form-row{display:flex;gap:12px;flex-wrap:wrap}
+    input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #e6eef5;background:#fbfeff;font-family:inherit}
+    button{border-radius:10px;padding:12px 14px;font-weight:700;border:none;cursor:pointer;background:var(--primary-700);color:#fff}
+
+    footer{padding:18px 0;text-align:center;color:#fff;margin-top:26px;border-radius:12px;background:linear-gradient(90deg,var(--primary-600),var(--primary-700));box-shadow:0 10px 30px rgba(7,110,160,.12)}
+    .social{display:inline-flex;gap:12px;align-items:center}
+    .social a{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,0.06);text-decoration:none;color:#fff}
+
+    /* small utilities */
+    .muted-2{color:#7b8b91}
+    .tag{display:inline-block;padding:6px 8px;border-radius:999px;background:rgba(7,160,224,.08);color:var(--primary-700);font-weight:700;font-size:0.85rem}
+
+    /* Responsive */
+    @media (max-width:1000px){
+      .hero{grid-template-columns:1fr 260px;padding-top:96px}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .education{grid-template-columns:1fr}
+    }
+    @media (max-width:720px){
+      nav ul{display:none}
+      .hamburger{display:flex}
+      .hero{grid-template-columns:1fr;gap:18px;padding-top:120px}
+      .avatar{width:220px;height:220px}
+      .grid{grid-template-columns:1fr}
+      .statline{flex-wrap:wrap}
+      .mobile-nav{display:none}
+    }
+
+    /* Accessibility focus */
+    a:focus,button:focus,input:focus,textarea:focus{outline:3px solid rgba(7,160,224,.14);outline-offset:3px}
+
+    /* micro interactions */
+    .project:hover{transform:translateY(-6px);transition:all .28s cubic-bezier(.2,.9,.2,1)}
+    .btn, .project{transition:all .18s ease}
+    .avatar{transition:transform .25s ease}
+    .avatar:hover{transform:translateY(-6px)}
+  </style>
+</head>
+<body>
+  <!-- header (fixed) -->
+  <header id="siteHeader" aria-label="Top navigation">
+    <div class="navbar" role="navigation" aria-label="Main navigation">
+      <div style="display:flex;gap:12px;align-items:center">
+        <div class="logo">Deepak Chauhan</div>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div style="display:flex;gap:10px;align-items:center">
+        <button class="hamburger" id="hambBtn" aria-label="Open menu">☰</button>
+        <div class="cta-small">Mumbai · BSc CS</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile nav overlay -->
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <div class="menu wrap" role="menu">
+      <a href="#home" role="menuitem">Home</a>
+      <a href="#about" role="menuitem">About</a>
+      <a href="#education" role="menuitem">Education</a>
+      <a href="#projects" role="menuitem">Projects</a>
+      <a href="#experience" role="menuitem">Experience</a>
+      <a href="#contact" role="menuitem">Contact</a>
+      <div style="margin-top:8px;text-align:right">
+        <button id="closeMobile" style="padding:8px 12px;border-radius:8px;border:none;background:var(--primary-700);color:#fff">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap" id="home">
+    <div class="hero">
+      <div>
+        <h1 class="h-title">Hi — I’m Deepak Chauhan</h1>
+        <p class="h-sub">I build responsive, accessible web applications using modern frontend and backend tools. I focus on clean, maintainable code and great user experiences.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#projects">View Projects</a>
+          <a class="btn btn-outline" href="#contact">Contact</a>
+          <a class="btn btn-outline" href="https://drive.google.com/file/d/13G7NAE_lETSoW-nXsM5PnJHaDknMDqKJ/view?usp=drive_link" target="_blank" rel="noopener" aria-label="Download resume">Resume</a>
+        </div>
+
+        <div class="statline" aria-hidden="true">
+          <div class="stat"><span class="muted">Experience</span><b>Internships</b></div>
+          <div class="stat"><span class="muted">Projects</span><b>6+</b></div>
+          <div class="stat"><span class="muted">Skills</span><b>Frontend · Backend</b></div>
+        </div>
+      </div>
+
+      <div class="avatar-wrap">
+        <!-- Use your uploaded image path -->
+      <img src="images/Deepak chauhan.jpg" alt="Deepak Chauhan" class="avatar">
+
+      </div>
+    </div>
+
+    <section id="about">
+      <div class="card">
+        <h2>About Me</h2>
+        <p class="muted">B.Sc. Computer Science student in Mumbai. Experienced with creating responsive UI, REST APIs, and small full-stack apps. Comfortable with HTML/CSS/JS, React, Node.js/Express, Flask and Python. I love learning new tech and shipping production-ready features.</p>
+        <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
+          <div class="card" style="flex:1;min-width:220px"><strong>Education</strong><div class="muted">B.Sc. Computer Science — Ghatkopar, Mumbai (ongoing)</div></div>
+          <div class="card" style="flex:1;min-width:220px"><strong>Core</strong><div class="muted">HTML · CSS · JavaScript · React · Node · Python · Flask · SQL · Git</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <h2>Education</h2>
+      <div style="margin-top:12px" class="education">
+        <div class="edu-item">
+          <h4>B.Sc. Computer Science</h4>
+          <div class="edu-meta">Ghatkopar College, Mumbai — 2023 — Present</div>
+          <p class="muted" style="margin-top:8px">Focused on web technologies, data structures and database systems. Coursework includes Software Engineering, Database Management, and Networking.</p>
+        </div>
+
+        <div class="edu-item">
+          <h4>Senior Secondary (12th)</h4>
+          <div class="edu-meta">S.G.S Inter College, Morkha Dobhi, Jaunpur — Completed 2023</div>
+          <p class="muted" style="margin-top:8px">Stream: Science — UP Board · Percentage: 81%</p>
+        </div>
+
+        <div class="edu-item">
+          <h4>High School (10th)</h4>
+          <div class="edu-meta">S.G.S Inter College, Morkha Dobhi, Jaunpur — Completed 2021</div>
+          <p class="muted" style="margin-top:8px">Stream: Science — UP Board · Percentage: 88.89%</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="grid" style="margin-top:12px">
+        <div class="project">
+          <h3>Portfolio Website</h3>
+          <p class="muted">Responsive personal site using semantic HTML and modern CSS. Focus on performance and accessibility.</p>
+          <p><strong>Tech:</strong> HTML · CSS · JS</p>
+        </div>
+
+        <div class="project">
+          <h3>Library Management</h3>
+          <p class="muted">Java + HTML CRUD app with user authentication and book issue/return flows.</p>
+          <p><strong>Tech:</strong> Java · JDBC · HTML</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2>Experience & Activities</h2>
+      <div style="margin-top:12px" class="grid">
+        <div class="card">
+          <h3>Prodigy Infotech — Web Dev Intern (1 month)</h3>
+          <p class="muted">Contributed to frontend features, fixed bugs, and delivered UI improvements. Received certificate of completion.</p>
+        </div>
+        <div class="card">
+          <h3>Enfuse — Live Proctoring</h3>
+          <p class="muted">Worked on live proctoring workflows and secure assessment processes.</p>
+        </div>
+        <div class="card">
+          <h3>Volunteering & Campus</h3>
+          <p class="muted">Hospitality support for college events, volunteer teaching at Don Bosco College, painting activities with Artshala, and event coordination.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT: mailto version (simple and guaranteed to work) -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <p class="muted">
+        Let's connect — whether it's collaboration, internships, or opportunities.
+        You can also find me on GitHub and LinkedIn.
+      </p>
+
+      <div class="contact-form card">
+        <!-- MAILTO FORM: opens user's email client and fills fields -->
+        <form action="mailto:drajput8794@gmail.com" method="POST" enctype="text/plain">
+          <div class="form-row">
+            <input type="text" name="name" placeholder="Your name" required>
+            <input type="email" name="email" placeholder="Email address" required>
+          </div>
+
+          <textarea name="message" rows="5" placeholder="Message" required></textarea>
+
+          <div style="display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:8px;flex-wrap:wrap">
+            <div class="muted-2" style="font-size:0.9rem">
+              Prefer email? write to
+              <a href="mailto:drajput8794@gmail.com">drajput8794@gmail.com</a>
+            </div>
+
+            <div style="text-align:right">
+              <button type="submit">Send Message</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <div style="text-align:left">
+        <div style="font-weight:700">© 2025 Deepak Chauhan</div>
+        <div class="muted-2">Web Developer · B.Sc. Computer Science</div>
+      </div>
+
+      <div style="text-align:center">
+        <div class="social" role="navigation" aria-label="Social links">
+          <a href="https://github.com/DeepakChauhan4585" target="_blank" rel="noopener" aria-label="Open GitHub">G</a>
+          <a href="https://www.facebook.com/deepak.chauhan" target="_blank" rel="noopener" aria-label="Open Facebook">f</a>
+          <a href="https://instagram.com/rajput_chauhan_734" target="_blank" rel="noopener" aria-label="Open Instagram">ig</a>
+        </div>
+        <div class="muted-2" style="font-size:0.9rem;margin-top:8px">Built with care</div>
+      </div>
+
+      <div style="text-align:right;min-width:160px">
+        <div style="font-weight:600">Want the code?</div>
+        <div class="muted-2">Find me on <a href="https://github.com/DeepakChauhan4585" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">GitHub</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // elements
+    const hamb = document.getElementById('hambBtn');
+    const mobile = document.getElementById('mobileNav');
+    const closeMobile = document.getElementById('closeMobile');
+    const headerEl = document.getElementById('siteHeader');
+
+    // show/hide mobile menu
+    if(hamb){
+      hamb.addEventListener('click', () => {
+        mobile.style.display = 'block';
+        mobile.setAttribute('aria-hidden', 'false');
+      });
+    }
+    if(closeMobile){
+      closeMobile.addEventListener('click', () => {
+        mobile.style.display = 'none';
+        mobile.setAttribute('aria-hidden', 'true');
+      });
+    }
+
+    // set body top padding equal to header height so content never goes under the fixed header
+    function setBodyPaddingForHeader(){
+      if(!headerEl) return;
+      // measure header rendered height (including margins)
+      const headerHeight = headerEl.getBoundingClientRect().height;
+      document.body.style.paddingTop = (headerHeight + 8) + 'px'; // 8px breathing room
+    }
+
+    // run on load and resize
+    window.addEventListener('load', setBodyPaddingForHeader);
+    window.addEventListener('resize', setBodyPaddingForHeader);
+
+    // Smooth scroll that accounts for header height (works for desktop and mobile)
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (!href || !href.startsWith('#')) return;
+
+        e.preventDefault();
+        const id = href.slice(1);
+        const target = document.getElementById(id);
+        if (!target) return;
+
+        // measure header height dynamically
+        const headerHeight = headerEl ? headerEl.getBoundingClientRect().height : 0;
+        const extra = 8; // breathing room
+        const offset = Math.ceil(headerHeight + extra);
+
+        // compute final Y
+        const targetRect = target.getBoundingClientRect();
+        const targetY = window.pageYOffset + targetRect.top - offset;
+
+        window.scrollTo({
+          top: targetY >= 0 ? targetY : 0,
+          behavior: 'smooth'
+        });
+
+        // close mobile nav after click if open
+        if (mobile && window.getComputedStyle(mobile).display === 'block') {
+          mobile.style.display = 'none';
+          mobile.setAttribute('aria-hidden','true');
+        }
+      });
+    });
+
+    // close mobile nav with ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobile && window.getComputedStyle(mobile).display === 'block') {
+        mobile.style.display = 'none';
+        mobile.setAttribute('aria-hidden','true');
+      }
+    });
+  </script>
+</body>
+</html>
